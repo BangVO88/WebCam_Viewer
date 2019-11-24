@@ -16,6 +16,8 @@ namespace WebcamView {
         private Mat frame;
         private VideoCapture video;
         private bool borderMode = false;
+        private System.Drawing.Point mousePoint;
+        private bool isMouseDown;
         
 
         // Constructor          
@@ -41,8 +43,15 @@ namespace WebcamView {
 
         // Event (Timer)    
         private void FrameTimer_Tick(object sender, EventArgs e) {
-            video.Read(frame);
-            camView.ImageIpl = frame.ToIplImage();
+            try
+            {
+                video.Read(frame);
+                camView.ImageIpl = frame.ToIplImage();
+            }
+            catch (Exception) {
+                frameTimer.Enabled = false;
+                MessageBox.Show("Camera device not found.\nPlease make sure the camera is activated.");
+            }
         }
 
         // Event (Exit)     
@@ -56,6 +65,21 @@ namespace WebcamView {
 
             if(borderMode) FormBorderStyle = FormBorderStyle.None;
             else FormBorderStyle = FormBorderStyle.FixedSingle;
+        }
+
+
+        private void CamView_MouseDown(object sender, MouseEventArgs e) {
+            mousePoint = new System.Drawing.Point(e.X, e.Y);
+        }
+
+        private void CamView_MouseMove(object sender, MouseEventArgs e) {
+            if((e.Button & MouseButtons.Left) == MouseButtons.Left)
+                Location = new System.Drawing.Point(Left - (mousePoint.X - e.X), Top - (mousePoint.Y - e.Y));
+        }
+
+        private void WebcamView_MouseMove(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

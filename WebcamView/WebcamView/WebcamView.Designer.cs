@@ -36,12 +36,15 @@
             // 
             // camView
             // 
+            this.camView.BackColor = System.Drawing.Color.Transparent;
             this.camView.Location = new System.Drawing.Point(0, 0);
             this.camView.Name = "camView";
             this.camView.Size = new System.Drawing.Size(400, 300);
             this.camView.TabIndex = 0;
             this.camView.TabStop = false;
             this.camView.DoubleClick += new System.EventHandler(this.CamView_DoubleClick);
+            this.camView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CamView_MouseDown);
+            this.camView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.CamView_MouseMove);
             // 
             // frameTimer
             // 
@@ -53,7 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(397, 298);
+            this.ClientSize = new System.Drawing.Size(400, 300);
             this.Controls.Add(this.camView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
